@@ -146,7 +146,7 @@ def checkclass():
 
 def attend():
     act = input('select action[add(a),remove(r),update(u)]: ')
-    if choice == 'a':
+    if act == 'a':
         id = input('student id: ')
         id2 = input('Class id: ')
         dt = input('date: ')
@@ -160,10 +160,21 @@ def attend():
         val2 = (id,id2,total)
         mycursor.execute(sql2,val2)
         mydb.commit()
-    elif choice == 'r':
-       
-    elif choice == 'u':
-        
+    elif act == 'r':
+        lcd.write_string('Student name:')
+        search = input('Student name: ')
+        mycursor.execute('select * from student where nickname = "'+search+'";')
+        myresult = mycursor.fetchall()
+        for row in myresult:
+            idz = row[0]
+        mycursor.execute('select count(*) from Attendance where studentid = "'+idz+'";')
+        #mycursor.execute('select * from Attendance where studentid = "'+idz+'";')
+        myresult = mycursor.fetchall()
+        num = str(myresult)
+        num = num[2:-3]
+        print(num)
+    elif act == 'u':
+        print('???')
     else:
         print('???')
 
@@ -186,7 +197,7 @@ try:
     elif what == 'c':
         checkclass()
     elif what == 'a':
-        print(':')#########################################
+        attend()
     else:
         print('???')
     
