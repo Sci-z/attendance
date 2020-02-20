@@ -63,5 +63,7 @@ try:
     mycursor.execute(hey,you)
     mydb.commit()
     print(nna+' is now in class:'+classname)
+    reset()
+    lcd.write_string(fna+' '+lna+'('+nna+')\n\rcheckin to '+classname)
 finally:
     GPIO.cleanup()
