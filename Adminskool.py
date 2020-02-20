@@ -140,64 +140,32 @@ def checkclass():
         nt = input('New teacher: ')
         mycursor.execute('update class set teacher ="'+nt+'" where name = "'+clsn+'";')
         mydb.commit()
-        
-    else:
-        print('???')
-
-def attend():
-    act = input('select action[add(a),remove(r),update(u)]: ')
-    if act == 'a':
-        id = input('student id: ')
-        id2 = input('Class id: ')
-        dt = input('date: ')
-        mt = input('month: ')
-        yt = input('year: ')
-        tt = input('time[ex: 13:55:00]: ')
-        total = (yt+'-'+mt+'-'+dt+' '+tt)
-        
-        
-        sql2 = ("insert into Attendance (studentid,classid,datetime) value (%s,%s,%s)")
-        val2 = (id,id2,total)
-        mycursor.execute(sql2,val2)
-        mydb.commit()
-    elif act == 'r':
-        lcd.write_string('Student name:')
-        search = input('Student name: ')
-        mycursor.execute('select * from student where nickname = "'+search+'";')
-        myresult = mycursor.fetchall()
-        for row in myresult:
-            idz = row[0]
-        mycursor.execute('select count(*) from Attendance where studentid = "'+idz+'";')
-        #mycursor.execute('select * from Attendance where studentid = "'+idz+'";')
-        myresult = mycursor.fetchall()
-        num = str(myresult)
-        num = num[2:-3]
-        print(num)
-    elif act == 'u':
-        print('???')
     else:
         print('???')
 
 
 
+from flask import Flask
 
+app = Flask(__name__)
 
-
-
-
+@app.route("/")
+def home():
+    return "Hello, World!"
+if __name__ == "__main__":
+    app.run(debug=True)
+    
 
 
 try:
     reset()
-    what = input('Admin account, what to do[student(s),class(c),attendance(a)]: ')
+    what = input('Admin account, what to do[student(s),class(c)]: ')
     if what == 's':
         print("Swipe ID card")
         lcd.write_string('Swipe your ID card:')
         checkname()
     elif what == 'c':
         checkclass()
-    elif what == 'a':
-        attend()
     else:
         print('???')
     
