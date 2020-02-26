@@ -145,18 +145,6 @@ def checkclass():
 
 
 
-from flask import Flask
-
-app = Flask(__name__)
-
-@app.route("/")
-def home():
-    return "Hello, World!"
-if __name__ == "__main__":
-    app.run(debug=True)
-    
-
-
 try:
     reset()
     what = input('Admin account, what to do[student(s),class(c)]: ')
