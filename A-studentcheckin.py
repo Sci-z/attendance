@@ -17,10 +17,31 @@ print(mydb)
 
 mycursor = mydb.cursor()
 
+from flask import Flask
 
+app = Flask(__name__)
 
 def reset():
     lcd.clear()
+    
+    
+    
+    
+@app.route("/")
+def home():
+    myhtml = '''
+<html>
+<body bgcolor ="fadegray">
+<table>
+<thead bgcolor ="red"><tr><th>studentid</th><th>classid</th><th>datetime</th></tr></thead>
+<tbody>
+'''.format()
+    while round > 0:
+        
+        #do it
+        myhtml += '<tr bgcolor ="lightblue"><td>{x}</td><td>{y}</td><td>{z}</td></tr>'
+        round = round - 1
+    return myhtml
 
 
 
@@ -65,5 +86,13 @@ try:
     print(nna+' is now in class:'+classname)
     reset()
     lcd.write_string(fna+' '+lna+'('+nna+')\n\rcheckin to '+classname)
+    mycursor.execute('select * from Attendance where datetime = Now();')
+    myresultt = mycursor.fetchall()
+    my = str(myresultt)
+    x = my[3:15]
+    y = my[19:22]
+    z = my[26:45]
+    if __name__ == "__main__":
+        app.run()
 finally:
     GPIO.cleanup()
